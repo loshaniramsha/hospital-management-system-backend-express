@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Create User
+model User {
+  user_id   Int    @id @default(autoincrement())
+  user_name String
+  password  String
+  email     String
+}
+
+// Doctor Model
+model Doctor {
+  doctor_id              String           @id @default(uuid())
+  doctor_name            String
+  doctor_register_number String
+  doctor_position        String
+  contact                String
+  email                  String
+  PregnantMothers        PregnantMother[] @relation("DoctorToMother")
+  Children               Children[]       @relation("DoctorToChild")
+}
+
+// Pregnant Mother Model
+model PregnantMother {
+  mother_id      String   @id @default(uuid())
+  mother_name    String
+  mother_age     Int
+  mother_address String
+  contact        String
+  gravidity      Int
+  register_date  DateTime
+  delivery_date  DateTime
+  clinic_date    DateTime
+
+  doctor_id String?
+  Doctor    Doctor? @relation("DoctorToMother", fields: [doctor_id], references: [doctor_id])
+
+  VaccineManage  VaccineManageMothers[]
+  MedicineManage MedicineManageMother[]
+}
+
+// Children Model
+model Children {
+  child_id       String @id @default(uuid())
+  child_name     String
+  mother_name    String
+  contact        String
+  address        String
+  age            Int
+  vaccine_status String
+
+  doctor_id String?
+  Doctor    Doctor? @relation("DoctorToChild", fields: [doctor_id], references: [doctor_id])
+
+  VaccineManage  VaccineManageChildren[]
+  MedicineManage MedicineManageChildren[]
+}
+
+// Medicine Model
+model Medicine {
+  medi_id              String                   @id @default(uuid())
+  name                 String
+  batch_number         String
+  brand                String
+  qty                  Int
+  date                 DateTime
+  MedicineManage       MedicineManageChildren[]
+  MedicineManageMother MedicineManageMother[]
+}
+
+// Vaccine Model
+model Vaccine {
+  vaccine_id          String                  @id @default(uuid())
+  name                String
+  batch_number        String
+  brand               String
+  qty                 Int
+  date                DateTime
+  VaccineManage       VaccineManageChildren[]
+  VaccineManageMother VaccineManageMothers[]
+}
+
+// Vaccine Management for Children
+model VaccineManageChildren {
+  child_id   String
+  vaccine_id String
+  reason     String
+  date       DateTime
+
+  Children Children @relation(fields: [child_id], references: [child_id])
+  Vaccine  Vaccine  @relation(fields: [vaccine_id], references: [vaccine_id])
+
+  @@id([child_id, vaccine_id]) // Composite primary key to prevent duplicate entries
+}
+
+// Medicine Management for Children
+model MedicineManageChildren {
+  child_id    String
+  medicine_id String
+  reason      String
+  date        DateTime
+
+  Children Children @relation(fields: [child_id], references: [child_id])
+  Medicine Medicine @relation(fields: [medicine_id], references: [medi_id])
+
+  @@id([child_id, medicine_id])
+}
+
+// Vaccine Management for Pregnant Mothers
+model VaccineManageMothers {
+  mother_id  String
+  vaccine_id String
+  date       DateTime
+  reason     String
+
+  PregnantMother PregnantMother @relation(fields: [mother_id], references: [mother_id])
+  Vaccine        Vaccine        @relation(fields: [vaccine_id], references: [vaccine_id])
+
+  @@id([mother_id, vaccine_id])
+}
+
+// Medicine Management for Pregnant Mothers
+model MedicineManageMother {
+  mother_id   String
+  medicine_id String
+  date        DateTime
+  reason      String
+
+  PregnantMother PregnantMother @relation(fields: [mother_id], references: [mother_id])
+  Medicine       Medicine       @relation(fields: [medicine_id], references: [medi_id])
+
+  @@id([mother_id, medicine_id])
+}
