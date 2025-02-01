@@ -23,7 +23,7 @@ model User {
 
 // Doctor Model
 model Doctor {
-  doctor_id              String           @id @default(uuid())
+  doctor_id              Int              @id @default(autoincrement())
   doctor_name            String
   doctor_register_number String
   doctor_position        String
@@ -35,7 +35,7 @@ model Doctor {
 
 // Pregnant Mother Model
 model PregnantMother {
-  mother_id      String   @id @default(uuid())
+  mother_id      Int      @id @default(autoincrement())
   mother_name    String
   mother_age     Int
   mother_address String
@@ -45,7 +45,7 @@ model PregnantMother {
   delivery_date  DateTime
   clinic_date    DateTime
 
-  doctor_id String?
+  doctor_id Int?
   Doctor    Doctor? @relation("DoctorToMother", fields: [doctor_id], references: [doctor_id])
 
   VaccineManage  VaccineManageMothers[]
@@ -54,7 +54,7 @@ model PregnantMother {
 
 // Children Model
 model Children {
-  child_id       String @id @default(uuid())
+  child_id       Int    @id @default(autoincrement())
   child_name     String
   mother_name    String
   contact        String
@@ -62,7 +62,7 @@ model Children {
   age            Int
   vaccine_status String
 
-  doctor_id String?
+  doctor_id Int?
   Doctor    Doctor? @relation("DoctorToChild", fields: [doctor_id], references: [doctor_id])
 
   VaccineManage  VaccineManageChildren[]
@@ -71,7 +71,7 @@ model Children {
 
 // Medicine Model
 model Medicine {
-  medi_id              String                   @id @default(uuid())
+  medi_id              Int                      @id @default(autoincrement())
   name                 String
   batch_number         String
   brand                String
@@ -83,7 +83,7 @@ model Medicine {
 
 // Vaccine Model
 model Vaccine {
-  vaccine_id          String                  @id @default(uuid())
+  vaccine_id          Int                     @id @default(autoincrement())
   name                String
   batch_number        String
   brand               String
@@ -95,8 +95,8 @@ model Vaccine {
 
 // Vaccine Management for Children
 model VaccineManageChildren {
-  child_id   String
-  vaccine_id String
+  child_id   Int
+  vaccine_id Int
   reason     String
   date       DateTime
 
@@ -108,8 +108,8 @@ model VaccineManageChildren {
 
 // Medicine Management for Children
 model MedicineManageChildren {
-  child_id    String
-  medicine_id String
+  child_id    Int
+  medicine_id Int
   reason      String
   date        DateTime
 
@@ -121,8 +121,8 @@ model MedicineManageChildren {
 
 // Vaccine Management for Pregnant Mothers
 model VaccineManageMothers {
-  mother_id  String
-  vaccine_id String
+  mother_id  Int
+  vaccine_id Int
   date       DateTime
   reason     String
 
@@ -134,8 +134,8 @@ model VaccineManageMothers {
 
 // Medicine Management for Pregnant Mothers
 model MedicineManageMother {
-  mother_id   String
-  medicine_id String
+  mother_id   Int
+  medicine_id Int
   date        DateTime
   reason      String
 
