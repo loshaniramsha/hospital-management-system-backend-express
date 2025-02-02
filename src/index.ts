@@ -1,7 +1,22 @@
 import express from 'express';
+import DoctorRoute from "../route/DoctorRoute";
+import PregnentMotherRoute from "../route/PregnentMotherRoute";
+import ChildRoute from "../route/ChildRoute";
+import MedicineRoute from "../route/MedicineRoute";
+import VaccineRoute from "../route/VaccineRoute";
+import VaccineManageChildRoute from "../route/VaccineManageChildRoute";
+import VaccineManageMomRoute from "../route/VaccineManageMomRoute";
+
 
 const app = express();
 app.use(express.json());
+app.use("/doctor", DoctorRoute);
+app.use("/mother",PregnentMotherRoute)
+app.use("/child",ChildRoute)
+app.use("/medicine",MedicineRoute)
+app.use("/vaccine",VaccineRoute)
+app.use("/vaccineManageChild",VaccineManageChildRoute)
+app.use("/vaccineManageMom",VaccineManageMomRoute)
 
 const port = 3000;
 app.listen(port, () => {
