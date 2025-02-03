@@ -6,6 +6,8 @@ import MedicineRoute from "../route/MedicineRoute";
 import VaccineRoute from "../route/VaccineRoute";
 import VaccineManageChildRoute from "../route/VaccineManageChildRoute";
 import VaccineManageMomRoute from "../route/VaccineManageMomRoute";
+import StaffRoute from "../route/StaffRoute";
+import AuthRoute from "../route/AuthRoute";
 
 
 const app = express();
@@ -17,6 +19,8 @@ app.use("/medicine",MedicineRoute)
 app.use("/vaccine",VaccineRoute)
 app.use("/vaccineManageChild",VaccineManageChildRoute)
 app.use("/vaccineManageMom",VaccineManageMomRoute)
+app.use("/staff",StaffRoute)
+app.use("/auth",AuthRoute)
 
 const port = 3000;
 app.listen(port, () => {
