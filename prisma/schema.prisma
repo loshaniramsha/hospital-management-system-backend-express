@@ -13,11 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Create User
+// User Model
 model User {
   user_id   Int    @id @default(autoincrement())
-  user_name String
-  password  String
+  user_name String @unique
+  password  String @unique
   email     String
 }
 
@@ -31,6 +31,19 @@ model Doctor {
   email                  String
   PregnantMothers        PregnantMother[] @relation("DoctorToMother")
   Children               Children[]       @relation("DoctorToChild")
+}
+
+// Staff Model
+model Staff {
+  staff_id Int    @id @default(autoincrement())
+  profile  String
+  name     String
+  contact  String
+  address  String
+  role     String
+
+  PregnantMothers PregnantMother[] @relation("StaffToMother")
+  Children        Children[]       @relation("StaffToChild")
 }
 
 // Pregnant Mother Model
@@ -48,8 +61,11 @@ model PregnantMother {
   doctor_id Int?
   Doctor    Doctor? @relation("DoctorToMother", fields: [doctor_id], references: [doctor_id])
 
+  staff_id Int?
+  Staff    Staff? @relation("StaffToMother", fields: [staff_id], references: [staff_id])
+
   VaccineManage  VaccineManageMothers[]
-  MedicineManage MedicineManageMother[]
+  MedicineManage MedicineManageMothers[]
 }
 
 // Children Model
@@ -65,32 +81,35 @@ model Children {
   doctor_id Int?
   Doctor    Doctor? @relation("DoctorToChild", fields: [doctor_id], references: [doctor_id])
 
+  staff_id Int?
+  Staff    Staff? @relation("StaffToChild", fields: [staff_id], references: [staff_id])
+
   VaccineManage  VaccineManageChildren[]
   MedicineManage MedicineManageChildren[]
 }
 
 // Medicine Model
 model Medicine {
-  medi_id              Int                      @id @default(autoincrement())
-  name                 String
-  batch_number         String
-  brand                String
-  qty                  Int
-  date                 DateTime
-  MedicineManage       MedicineManageChildren[]
-  MedicineManageMother MedicineManageMother[]
+  medicine_id            Int                      @id @default(autoincrement())
+  name                   String
+  batch_number           String
+  brand                  String
+  qty                    Int
+  date                   DateTime
+  MedicineManageChildren MedicineManageChildren[]
+  MedicineManageMothers  MedicineManageMothers[]
 }
 
 // Vaccine Model
 model Vaccine {
-  vaccine_id          Int                     @id @default(autoincrement())
-  name                String
-  batch_number        String
-  brand               String
-  qty                 Int
-  date                DateTime
-  VaccineManage       VaccineManageChildren[]
-  VaccineManageMother VaccineManageMothers[]
+  vaccine_id            Int                     @id @default(autoincrement())
+  name                  String
+  batch_number          String
+  brand                 String
+  qty                   Int
+  date                  DateTime
+  VaccineManageChildren VaccineManageChildren[]
+  VaccineManageMothers  VaccineManageMothers[]
 }
 
 // Vaccine Management for Children
@@ -103,7 +122,7 @@ model VaccineManageChildren {
   Children Children @relation(fields: [child_id], references: [child_id])
   Vaccine  Vaccine  @relation(fields: [vaccine_id], references: [vaccine_id])
 
-  @@id([child_id, vaccine_id]) // Composite primary key to prevent duplicate entries
+  @@id([child_id, vaccine_id]) // Composite primary key
 }
 
 // Medicine Management for Children
@@ -114,7 +133,7 @@ model MedicineManageChildren {
   date        DateTime
 
   Children Children @relation(fields: [child_id], references: [child_id])
-  Medicine Medicine @relation(fields: [medicine_id], references: [medi_id])
+  Medicine Medicine @relation(fields: [medicine_id], references: [medicine_id])
 
   @@id([child_id, medicine_id])
 }
@@ -133,14 +152,14 @@ model VaccineManageMothers {
 }
 
 // Medicine Management for Pregnant Mothers
-model MedicineManageMother {
+model MedicineManageMothers {
   mother_id   Int
   medicine_id Int
   date        DateTime
   reason      String
 
   PregnantMother PregnantMother @relation(fields: [mother_id], references: [mother_id])
-  Medicine       Medicine       @relation(fields: [medicine_id], references: [medi_id])
+  Medicine       Medicine       @relation(fields: [medicine_id], references: [medicine_id])
 
   @@id([mother_id, medicine_id])
 }
