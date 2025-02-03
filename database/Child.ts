@@ -13,7 +13,8 @@ export async function ChildAdd(child:Child){
                 address:child.address,
                 age:child.age,
                 vaccine_status:child.vaccine_status,
-                doctor_id:child.doctor_id
+                doctor_id:child.doctor_id,
+                staff_id:child.staff_id
             }
         })
         console.log("Child Added Successfully",newChild)

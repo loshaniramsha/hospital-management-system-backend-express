@@ -9,6 +9,7 @@ export default class PregnentMothersEntity {
     delivery_date:Date
     clinic_date:Date
     doctor_id:number
+    staff_id:number
 
     constructor(
         mother_id: number,
@@ -20,7 +21,8 @@ export default class PregnentMothersEntity {
         register_date:Date,
         delivery_date:Date,
         clinic_date:Date,
-        doctor_id:number
+        doctor_id:number,
+        staff_id:number
     ){
         this.mother_id = mother_id;
         this.mother_name = mother_name;
@@ -32,5 +34,6 @@ export default class PregnentMothersEntity {
         this.delivery_date = delivery_date;
         this.clinic_date = clinic_date;
         this.doctor_id = doctor_id;
+        this.staff_id = staff_id;
     }
 }

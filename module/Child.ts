@@ -7,6 +7,7 @@ export default class ChildEntity {
     age: number;
     vaccine_status: string;
     doctor_id: number;
+    staff_id: number;
 
     constructor(
         child_id: number,
@@ -16,7 +17,8 @@ export default class ChildEntity {
         address: string,
         age: number,
         vaccine_status: string,
-        doctor_id: number
+        doctor_id: number,
+        staff_id: number
     ) {
         this.child_id = child_id;
         this.child_name = child_name;
@@ -26,5 +28,6 @@ export default class ChildEntity {
         this.age = age;
         this.vaccine_status = vaccine_status;
         this.doctor_id = doctor_id;
+        this.staff_id=staff_id
     }
 }

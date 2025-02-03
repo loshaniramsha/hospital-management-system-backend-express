@@ -14,7 +14,8 @@ export async function PregnantMotherAdd(mother:Mothers){
                 register_date:mother.register_date,
                 delivery_date:mother.delivery_date,
                 clinic_date:mother.clinic_date,
-                doctor_id:mother.doctor_id
+                doctor_id:mother.doctor_id,
+                staff_id:mother.staff_id,
             }
         })
         console.log("Mother Added Successfully",newMother)
