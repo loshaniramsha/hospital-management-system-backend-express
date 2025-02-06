@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import Child from "../module/Child";
 
 const prisma=new PrismaClient();
-
+/*Save Children*/
 export async function ChildAdd(child:Child){
     try {
         const newChild=await prisma.children.create({

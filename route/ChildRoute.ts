@@ -3,6 +3,7 @@ import Child from "../module/Child"
 import {ChildAdd,DeleteChild} from "../database/Child";
 
 const router=express.Router();
+/*Save Child*/
 router.post("/add",async (req,res)=>{
     const child:Child=req.body;
     try {
@@ -25,4 +26,5 @@ router.delete("/delete/:id",async (req,res)=>{
         console.log("Not Success Child Delete",e);
     }
 })
+
 export default router;

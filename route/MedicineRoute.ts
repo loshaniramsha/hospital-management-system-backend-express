@@ -3,6 +3,7 @@ import Medicine from "../module/Medicine";
 import { MedicineAdd,DeleteMedicine } from "../database/Medicine";
 
 const router = express.Router();
+/*Save Medicine*/
 router.post("/add", async (req, res) => {
     const medicine:Medicine=req.body;
     try {
@@ -15,6 +16,7 @@ router.post("/add", async (req, res) => {
     }
 })
 
+/*Delete Medicine*/
 router.delete("delete/:id",async (req,res)=>{
     // @ts-ignore
     const id:number=req.params.id;
