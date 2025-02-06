@@ -25,3 +25,18 @@ export async function ChildAdd(child:Child){
         throw err;
     }
 }
+/*Delete Child*/
+export async function DeleteChild(child_id:number){
+    try {
+        const deleteChild=await prisma.children.delete({
+            where:{
+                child_id:child_id,
+            },
+        });
+        console.log("deleteChild",deleteChild);
+    }
+    catch(err){
+        console.log("error fetching data",err)
+        throw err;
+    }
+}
