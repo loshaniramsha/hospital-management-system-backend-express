@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import Doctor from "../module/Doctor"
 
 const prisma=new PrismaClient();
-
+/*Save Doctor*/
 export async function DoctorAdd(doctor:Doctor){
     try {
         const newDoctor=await prisma.doctor.create({
@@ -20,5 +20,21 @@ export async function DoctorAdd(doctor:Doctor){
     catch(err){
         console.log("error fetching data",err)
         throw err;
+    }
+}
+
+/*Delete Doctor*/
+export async function DeleteDoctor(doctor_id:number){
+    try {
+        const deleteDoctor=await prisma.doctor.delete({
+            where:{
+                doctor_id:doctor_id,
+            },
+        });
+        console.log("deleteDoctor",deleteDoctor);
+    }
+    catch (error){
+        console.log("error fetching data",error)
+        throw error;
     }
 }

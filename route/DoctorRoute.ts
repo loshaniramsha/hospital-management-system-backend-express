@@ -1,8 +1,9 @@
 import express from 'express';
 import Doctor from "../module/Doctor"
-import {DoctorAdd} from "../database/Doctor";
+import {DoctorAdd,DeleteDoctor} from "../database/Doctor";
 
 const router = express.Router();
+/*Save Doctor*/
 router.post("/add",async (req,res)=>{
     const Doctoctor:Doctor=req.body
     try {
@@ -13,4 +14,18 @@ router.post("/add",async (req,res)=>{
         res.status(400).send(error)
     }
 })
+
+/*Delete Doctor*/
+router.delete("/delete/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        await DeleteDoctor(id)
+        res.send("Doctor Deleted");
+    }
+    catch (error){
+        console.log(error);
+    }
+
+})
+
 export default router;
