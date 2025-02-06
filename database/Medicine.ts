@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import Medicine from "../module/Medicine";
 
 const prisma=new PrismaClient();
-
+/*Save Medicine*/
 export async function MedicineAdd(medicine:Medicine){
     try {
         const newMedicine=await prisma.medicine.create({
@@ -19,5 +19,21 @@ export async function MedicineAdd(medicine:Medicine){
     catch (err){
         console.log("error fetching data",err)
         throw err;
+    }
+}
+
+/*Delete Medicine*/
+export async function DeleteMedicine(medi_id:number){
+    try {
+        const deleteMedicine=await prisma.medicine.delete({
+            where:{
+                medicine_id:medi_id,
+            },
+        });
+        console.log("medicine delete",deleteMedicine)
+    }
+    catch (error){
+        console.log("error delete medicine",error)
+        throw error;
     }
 }
