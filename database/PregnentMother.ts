@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import Mothers from "../module/PregnentMothers"
 
 const prisma=new PrismaClient();
+/*Save Mother*/
 export async function PregnantMotherAdd(mother:Mothers){
     try {
         const newMother=await prisma.pregnantMother.create({
@@ -22,6 +23,22 @@ export async function PregnantMotherAdd(mother:Mothers){
     }
     catch(err){
         console.log("error fetching data",err)
+        throw err;
+    }
+}
+
+/*Delete Mother*/
+export async function DeleteMother(mother_id:number){
+    try {
+        const deleteMother=await prisma.pregnantMother.delete({
+            where:{
+                mother_id:mother_id
+            },
+        });
+        console.log("deleteMother",deleteMother);
+    }
+    catch(err){
+        console.log("error delete mother",err)
         throw err;
     }
 }

@@ -1,8 +1,9 @@
 import express from "express";
-import {PregnantMotherAdd} from "../database/PregnentMother";
+import {PregnantMotherAdd,DeleteMother} from "../database/PregnentMother";
 import PregnentMother from "../module/PregnentMothers"
 
 const router=express.Router();
+/*Save Mother*/
 router.post("/add",async (req,res)=>{
     const mothers:PregnentMother=req.body;
     try {
@@ -14,4 +15,16 @@ router.post("/add",async (req,res)=>{
         throw err;
     }
 })
+
+/*Delete Mother*/
+router.delete("/delete/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        await DeleteMother(id);
+        res.send("Mother Removed Successfully");
+    }catch (error){
+        res.status(400).send(error)
+    }
+})
+
 export default router;
