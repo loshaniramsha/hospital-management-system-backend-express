@@ -1,6 +1,6 @@
 import express from "express";
 import Child from "../module/Child"
-import {ChildAdd,DeleteChild} from "../database/Child";
+import {ChildAdd,DeleteChild,UpdateChild} from "../database/Child";
 
 const router=express.Router();
 /*Save Child*/
@@ -26,5 +26,17 @@ router.delete("/delete/:id",async (req,res)=>{
         console.log("Not Success Child Delete",e);
     }
 })
+/*Updated Child*/
+router.put("/update/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        await UpdateChild(id,req.body);
+        res.send("Updated Child");
+    }
+    catch (e){
+        console.log("Not Updated Child",e);
+        throw e;
+    }
 
+})
 export default router;

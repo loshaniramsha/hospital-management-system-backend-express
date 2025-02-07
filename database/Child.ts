@@ -40,3 +40,19 @@ export async function DeleteChild(child_id:number){
         throw err;
     }
 }
+/*Update Child*/
+export async function UpdateChild(child_id:number,updatedChild:Partial<Child>){
+    try {
+        const updateChild=await prisma.children.update({
+            where:{
+                child_id:child_id,
+            },
+            data:updatedChild,
+        });
+        console.log("updateChild",updateChild);
+    }
+    catch (error){
+        console.error("Child Updated Error",error)
+        throw error;
+    }
+}
