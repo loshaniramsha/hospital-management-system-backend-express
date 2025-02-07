@@ -1,6 +1,6 @@
 import express from 'express';
 import Doctor from "../module/Doctor"
-import {DoctorAdd,DeleteDoctor} from "../database/Doctor";
+import {DoctorAdd,DeleteDoctor,UpdateDoctro} from "../database/Doctor";
 
 const router = express.Router();
 /*Save Doctor*/
@@ -28,4 +28,15 @@ router.delete("/delete/:id",async (req,res)=>{
 
 })
 
+/*Update Doctor*/
+router.put("/update/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        await UpdateDoctro(id,req.body);
+        res.send("Updated Doctor");
+    }
+    catch (error){
+        res.status(400).send(error)
+    }
+})
 export default router;

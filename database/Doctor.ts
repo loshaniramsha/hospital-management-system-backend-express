@@ -38,3 +38,20 @@ export async function DeleteDoctor(doctor_id:number){
         throw error;
     }
 }
+
+/*Update Doctor*/
+export async function UpdateDoctro(doctor_id:number,updateDoctor:Partial<Doctor>){
+    try {
+        const updateDoctors=await prisma.doctor.update({
+            where:{
+                doctor_id:doctor_id,
+            },
+            data:updateDoctor,
+        });
+        console.log("updateDoctor",updateDoctors);
+    }
+    catch (error){
+        console.log("error fetching data",error)
+        throw error;
+    }
+}
