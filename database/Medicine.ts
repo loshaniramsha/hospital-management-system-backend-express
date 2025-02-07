@@ -37,3 +37,20 @@ export async function DeleteMedicine(medi_id:number){
         throw error;
     }
 }
+
+/*Update Medicine*/
+export async function UpdateMedicine(medi_id:number,updateMedicine:Partial<Medicine>){
+    try {
+        const newMedicine=await prisma.medicine.update({
+            where:{
+                medicine_id:medi_id,
+            },
+            data:updateMedicine,
+        });
+        console.log("updateMedicine",updateMedicine);
+    }
+    catch (error){
+        console.log("error updateMedicine",error)
+        throw error;
+    }
+}

@@ -1,6 +1,6 @@
 import express from "express";
 import Medicine from "../module/Medicine";
-import { MedicineAdd,DeleteMedicine } from "../database/Medicine";
+import { MedicineAdd,DeleteMedicine,UpdateMedicine } from "../database/Medicine";
 
 const router = express.Router();
 /*Save Medicine*/
@@ -23,6 +23,18 @@ router.delete("delete/:id",async (req,res)=>{
     try {
         await DeleteMedicine(id);
         res.send("Child Deleted");
+    }
+    catch (error){
+        console.log("error fetching data",error)
+    }
+})
+
+/*Update Medicine*/
+router.put("/update/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        await UpdateMedicine(id,req.body);
+        res.send("Updated Medicine");
     }
     catch (error){
         console.log("error fetching data",error)
