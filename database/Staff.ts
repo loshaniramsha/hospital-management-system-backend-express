@@ -36,3 +36,19 @@ export async function DeleteStaff(staff_id:number){
         console.log("Error delete staff",err)
     }
 }
+/*Update Staff*/
+export async function UpdateStaff(staff_id:number,updateStaf:Partial<Staff>){
+    try {
+        const updatestaff=await prisma.staff.update({
+            where:{
+                staff_id:staff_id,
+            },
+            data:updateStaf,
+        })
+        console.log("update staff",updatestaff);
+    }
+    catch (error){
+        console.log(error)
+
+    }
+}
