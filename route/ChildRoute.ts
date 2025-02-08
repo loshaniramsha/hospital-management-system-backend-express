@@ -1,6 +1,6 @@
 import express from "express";
 import Child from "../module/Child"
-import {ChildAdd,DeleteChild,UpdateChild} from "../database/Child";
+import {ChildAdd,DeleteChild,UpdateChild,GetAllChildren} from "../database/Child";
 
 const router=express.Router();
 /*Save Child*/
@@ -36,6 +36,19 @@ router.put("/update/:id",async (req,res)=>{
     catch (e){
         console.log("Not Updated Child",e);
         throw e;
+    }
+
+})
+
+/*Get all child*/
+router.get("/all",async (req, res) => {
+    try {
+        const child = await GetAllChildren();
+        res.send(child);
+
+    }
+    catch (error){
+        console.log(error);
     }
 
 })

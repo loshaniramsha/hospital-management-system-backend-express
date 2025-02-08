@@ -56,3 +56,13 @@ export async function UpdateChild(child_id:number,updatedChild:Partial<Child>){
         throw error;
     }
 }
+/*Get all*/
+export async function GetAllChildren(){
+    try {
+        return await prisma.children.findMany();
+    }
+    catch(err){
+        console.log("error fetching data",err)
+        throw err;
+    }
+}
