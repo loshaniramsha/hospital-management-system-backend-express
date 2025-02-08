@@ -42,3 +42,20 @@ export async function DeleteMother(mother_id:number){
         throw err;
     }
 }
+
+/*Update Mother*/
+export async function UpdateMother(mother_id:number,updateMom:Partial<Mothers>){
+    try {
+        const updatemother=await prisma.pregnantMother.update({
+            where:{
+                mother_id:mother_id,
+            },
+            data:updateMom,
+        });
+        console.log("Mother Updated",updatemother);
+    }
+    catch (error){
+        console.log("error updating mother",error)
+        throw error;
+    }
+}
