@@ -1,6 +1,6 @@
 import express from "express";
 import Child from "../module/Child"
-import {ChildAdd,DeleteChild,UpdateChild,GetAllChildren} from "../database/Child";
+import {ChildAdd,DeleteChild,UpdateChild,GetAllChildren,GetById} from "../database/Child";
 
 const router=express.Router();
 /*Save Child*/
@@ -52,4 +52,25 @@ router.get("/all",async (req, res) => {
     }
 
 })
+
+/*GetbyId*/
+// @ts-ignore
+router.get("/view/:id", async (req, res) => {
+    const id: number = +req.params.id; // Convert to number
+
+    try {
+        const child = await GetById(id);
+
+        if (!child) {
+            return res.status(404).json({ message: "Child not found" });
+        }
+
+        res.status(200).json(child);
+    } catch (error) {
+        console.error("Error fetching child:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+
 export default router;

@@ -66,3 +66,25 @@ export async function GetAllChildren(){
         throw err;
     }
 }
+
+/*get by id*/
+export async function GetById(child_id: number) {
+    try {
+        const child = await prisma.children.findUnique({
+            where: {
+                child_id: child_id,
+            },
+        });
+
+        if (!child) {
+            console.log("Child ID not found");
+            return null; // Return null instead of logging
+        }
+
+        console.log("Child found:", child);
+        return child; // Return the child data
+    } catch (err) {
+        console.log("Error fetching data:", err);
+        throw err; // Throw the error to be caught by the route handler
+    }
+}
