@@ -1,6 +1,6 @@
 import express from "express";
 import Vaccine from "../module/Vaccine";
-import {VaccineAdd,DeleteVaccine} from "../database/Vaccine";
+import {VaccineAdd,DeleteVaccine,UpdateVaccine} from "../database/Vaccine";
 
 
 const router=express.Router();
@@ -26,6 +26,18 @@ router.delete("/delete/:id",async (req,res)=>{
     catch (err){
         console.log(err);
 
+    }
+})
+
+/*Update vaccine*/
+router.put("/update/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        await UpdateVaccine(id,req.body);
+        res.send("Updated Vaccine");
+    }
+    catch (err){
+        console.log(err);
     }
 })
 export default router;

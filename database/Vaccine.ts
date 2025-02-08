@@ -37,3 +37,20 @@ export async function DeleteVaccine(vaccine_id:number){
         throw err;
     }
 }
+
+/*Update Vaccine*/
+export async function UpdateVaccine(vaccine_id:number,updateVaccine:Partial<Vaccine>){
+    try {
+        const updatevaccine=await prisma.vaccine.update({
+            where:{
+                vaccine_id:vaccine_id,
+            },
+            data:updateVaccine,
+        });
+        console.log("Update Vaccine",updatevaccine);
+    }
+    catch (error){
+        console.log("error updating Vaccine",error)
+        throw error;
+    }
+}
