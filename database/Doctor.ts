@@ -55,3 +55,36 @@ export async function UpdateDoctro(doctor_id:number,updateDoctor:Partial<Doctor>
         throw error;
     }
 }
+
+/*Get All*/
+export async function GetAllDoctors(){
+    try {
+        return await prisma.doctor.findMany();
+
+    }
+    catch(err){
+        console.log("error fetching data",err);
+        throw err;
+    }
+}
+
+/*Get by id*/
+export async function GetById(doctor_id:number){
+    try {
+        const doctor=await prisma.doctor.findUnique({
+            where:{
+                doctor_id:doctor_id,
+            },
+        });
+        if(doctor==null){
+            console.log("doctor not found",doctor)
+            return null;
+        }
+        console.log("Doctor found",doctor);
+        return doctor;
+    }
+    catch(err){
+        console.log("error fetching data",err)
+        throw err;
+    }
+}
