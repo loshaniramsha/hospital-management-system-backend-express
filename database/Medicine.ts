@@ -47,10 +47,21 @@ export async function UpdateMedicine(medi_id:number,updateMedicine:Partial<Medic
             },
             data:updateMedicine,
         });
-        console.log("updateMedicine",updateMedicine);
+        console.log("updateMedicine",newMedicine);
     }
     catch (error){
         console.log("error updateMedicine",error)
         throw error;
     }
+}
+/*Get All*/
+export async function GetAllMedicines(){
+    try {
+        return await prisma.medicine.findMany();
+    }
+    catch (error){
+        console.log("error getAllMedicines",error);
+        throw error;
+    }
+
 }
