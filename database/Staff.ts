@@ -52,3 +52,36 @@ export async function UpdateStaff(staff_id:number,updateStaf:Partial<Staff>){
 
     }
 }
+
+/*Get All*/
+export async function GetAllStaff(){
+    try {
+        return await prisma.staff.findMany();
+
+    }
+    catch(err){
+        console.error("Error getAllStaff",err);
+        throw err;
+    }
+}
+
+/*Get-By-Id*/
+export async function GetById(id:number){
+    try {
+        const staff=await prisma.staff.findUnique({
+            where:{
+                staff_id:id,
+            },
+        });
+        if (staff==null){
+            console.log("no staff",staff);
+            return null
+        }
+        console.log("Staff found",staff);
+        return staff;
+    }
+    catch(err){
+        console.error("Error getAllStaff",err);
+        throw err;
+    }
+}
