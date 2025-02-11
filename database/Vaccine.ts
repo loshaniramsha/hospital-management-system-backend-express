@@ -54,3 +54,36 @@ export async function UpdateVaccine(vaccine_id:number,updateVaccine:Partial<Vacc
         throw error;
     }
 }
+
+/*Get All*/
+export async function GetAllVaccines(){
+    try {
+        return await prisma.vaccine.findMany()
+
+    }
+    catch (error){
+        console.log("error getAllVaccines",error);
+        throw error;
+    }
+}
+
+/*Get-By-Id*/
+export async function GetById(id:number){
+    try {
+        const vaccine=await prisma.vaccine.findUnique({
+            where:{
+                vaccine_id:id,
+            },
+        });
+        if (!vaccine===null){
+            console.log("no vaccine",vaccine);
+            return null
+        }
+        console.log("Vaccine",vaccine);
+        return vaccine;
+    }
+    catch (error){
+        console.log("error getAllVaccines",error);
+        throw error;
+    }
+}
