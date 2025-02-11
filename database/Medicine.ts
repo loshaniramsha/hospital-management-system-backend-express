@@ -63,5 +63,22 @@ export async function GetAllMedicines(){
         console.log("error getAllMedicines",error);
         throw error;
     }
-
+}
+/*Get-By-Id*/
+export async function GetById(medi_id:number){
+    try {
+        const medi=await prisma.medicine.findUnique({
+            where:{
+                medicine_id:medi_id,
+            },
+        });
+        if (medi==null){
+            console.log("no medicine",medi);
+            return null;
+        }
+    }
+    catch (error){
+        console.log("error getById",error);
+        throw error;
+    }
 }

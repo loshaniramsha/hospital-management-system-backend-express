@@ -1,6 +1,6 @@
 import express from "express";
 import Medicine from "../module/Medicine";
-import { MedicineAdd,DeleteMedicine,UpdateMedicine,GetAllMedicines } from "../database/Medicine";
+import { MedicineAdd,DeleteMedicine,UpdateMedicine,GetAllMedicines,GetById } from "../database/Medicine";
 
 const router = express.Router();
 /*Save Medicine*/
@@ -51,5 +51,22 @@ router.get("/all",async (req,res)=>{
         console.log("error fetching data",error)
     }
 
+})
+
+/*GetById*/
+router.get("/view/:id",async (req,res)=>{
+    const id:number=+req.params.id;
+    try {
+        const medi=await GetById(id);
+        if(!medi){
+            res.send("Not Found");
+
+        }
+        res.status(200).json(medi);
+    }
+    catch (error){
+        console.log("error fetching data",error);
+        res.status(500).send({error:error});
+    }
 })
 export default router;

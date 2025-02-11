@@ -15,6 +15,7 @@ router.post("/add",async (req,res)=>{
         res.status(400).send({err:err})
     }
 })
+
 /*Delete Child*/
 router.delete("/delete/:id",async (req,res)=>{
     const id:number=+req.params.id;
@@ -26,6 +27,7 @@ router.delete("/delete/:id",async (req,res)=>{
         console.log("Not Success Child Delete",e);
     }
 })
+
 /*Updated Child*/
 router.put("/update/:id",async (req,res)=>{
     const id:number=+req.params.id;
@@ -53,7 +55,7 @@ router.get("/all",async (req, res) => {
 
 })
 
-/*GetbyId*/
+/*Get-by-Id*/
 // @ts-ignore
 router.get("/view/:id", async (req, res) => {
     const id: number = +req.params.id; // Convert to number

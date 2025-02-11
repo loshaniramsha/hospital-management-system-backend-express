@@ -66,7 +66,6 @@ export async function GetAllChildren(){
         throw err;
     }
 }
-
 /*get by id*/
 export async function GetById(child_id: number) {
     try {
