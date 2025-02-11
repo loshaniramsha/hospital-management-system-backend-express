@@ -59,3 +59,34 @@ export async function UpdateMother(mother_id:number,updateMom:Partial<Mothers>){
         throw error;
     }
 }
+/*Get All*/
+export async function GetAllMothers(){
+    try {
+        return await prisma.pregnantMother.findMany()
+    }
+    catch(err){
+        console.log("error getAllMothers",err);
+        throw err;
+    }
+}
+
+/*Get-By-Id*/
+export async function GetById(id:number){
+    try {
+        const mother=await prisma.pregnantMother.findUnique({
+            where:{
+                mother_id:id,
+            },
+        });
+        if (mother==null){
+            console.log("no mother",mother);
+            return null
+        }
+        console.log("Mother Found",mother);
+        return mother;
+    }
+    catch(err){
+        console.error("error getById",err);
+        throw err;
+    }
+}
